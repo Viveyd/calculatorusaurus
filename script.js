@@ -9,6 +9,13 @@ document.querySelector(".calc-controls input.num-point").addEventListener("click
 document.querySelector(".calc-controls input.num-sqrd").addEventListener("click", squareNumber);
 document.querySelector(".calc-controls input.num-equal").addEventListener("click", equate);
 
+window.addEventListener("keydown", (e) => {
+    const ACCEPTED = ["0","1","2","3","4","5","6","7","8","9","/","*","-", "+", "."];
+    if(ACCEPTED.includes(e.key)){
+        document.querySelector(`.calc-controls input[value='${e.key}']`).click();
+    }
+})
+
 
 const calcInputs = {
     operand1: null,
