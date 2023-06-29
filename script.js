@@ -3,6 +3,8 @@
 });
 document.querySelector(".calc-controls input.num-sign").addEventListener("click", toggleNumSign);
 document.querySelector(".calc-controls input.num-point").addEventListener("click", addPoint);
+document.querySelector(".calc-controls input.num-sqrd").addEventListener("click", squareNumber);
+
 
 function toggleNumSign(){
     const calcDisplay = document.querySelector(".calc-display");
@@ -20,6 +22,11 @@ function addPoint(){
 
 function inputNumber(e){
     document.querySelector(".calc-display").textContent += e.target.value;
+}
+
+function squareNumber(){
+    const calcDisplay = document.querySelector(".calc-display");
+    if(Number(calcDisplay.textContent) > 1) calcDisplay.textContent = Number(calcDisplay.textContent)**2;
 }
 
 function add(num1 , num2){
