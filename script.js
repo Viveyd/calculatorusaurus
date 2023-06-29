@@ -96,7 +96,7 @@ function divide(num1 , num2){
 
 function toggleNumSign(){
     if(Number(calcInputs.temp) === 0) return;
-    else if(calcInputs.temp.includes("-")) calcInputs.temp = calcInputs.temp.slice(1);
+    else if(calcInputs.temp.toString().includes("-")) calcInputs.temp = calcInputs.temp.slice(1);
     else calcInputs.temp = "-" + calcInputs.temp;
     document.querySelector(".calc-display").textContent = calcInputs.temp;
 }
