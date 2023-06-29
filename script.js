@@ -103,7 +103,7 @@ function toggleNumSign(){
 
 function addPoint(){
     if(calcInputs.temp === null) calcInputs.temp = "0.";
-    else if(calcInputs.temp.includes(".")) return;
+    else if(calcInputs.temp.toString().includes(".")) return;
     else calcInputs.temp +=  ".";
     document.querySelector(".calc-display").textContent = calcInputs.temp;
 }
