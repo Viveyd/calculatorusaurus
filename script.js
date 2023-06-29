@@ -8,9 +8,10 @@ document.querySelector(".calc-controls input.num-sign").addEventListener("click"
 document.querySelector(".calc-controls input.num-point").addEventListener("click", addPoint);
 document.querySelector(".calc-controls input.num-sqrd").addEventListener("click", squareNumber);
 document.querySelector(".calc-controls input.num-equal").addEventListener("click", equate);
+document.querySelector(".calc-controls input.clear-all").addEventListener("click", clearAll);
+
 
 window.addEventListener("keydown", (e) => {
-    console.log(e.key);
     const ACCEPTED = ["0","1","2","3","4","5","6","7","8","9","/","*","-", "+", ".", "Enter"];
     if(ACCEPTED.includes(e.key)){
         if(e.key === "Enter") {
@@ -53,6 +54,7 @@ function equate(){ // for equal operator
         calcInputs.temp = operate(calcInputs.operator, calcInputs.operand1, calcInputs.operand2);
         calcInputs.operand1 = null;
         calcInputs.justCalculated = true;
+        console.log(calcInputs.temp);
         document.querySelector(".calc-display").textContent = calcInputs.temp;
 
     } else if(calcInputs.justCalculated){
@@ -103,9 +105,6 @@ function divide(num1 , num2){
     return num1 / num2;
 }
 
-
-
-
 function toggleNumSign(){
     if(Number(calcInputs.temp) === 0) return;
     else if(calcInputs.temp.toString().includes("-")) calcInputs.temp = calcInputs.temp.slice(1);
@@ -123,6 +122,14 @@ function addPoint(){
 function squareNumber(){
     const calcDisplay = document.querySelector(".calc-display");
     if(Number(calcDisplay.textContent) > 1) calcDisplay.textContent = Number(calcDisplay.textContent)**2;
+}
+
+function clearAll(){
+    document.querySelector(".calc-display").textContent = "";
+    calcInputs.operand1 = null;
+    calcInputs.operand2 = null;
+    calcInputs.operator = null;
+    calcInputs.temp = null;
 }
 
 function clearDisplay(){
