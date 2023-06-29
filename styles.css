@@ -1,0 +1,37 @@
+html{
+    height: 100vh;
+    width: 100vw;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.calc-body{
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid black;
+}
+
+.calc-display{
+   flex: 1 1 30%;
+}
+
+.calc-controls{
+    flex: 1 1 70%;
+    display: flex;
+    flex-wrap: wrap;
+ }
+
+ .calc-controls > input{
+    flex: 0 0 25%; 
+    
+ }
+
