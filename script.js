@@ -10,8 +10,13 @@ document.querySelector(".calc-controls input.num-sqrd").addEventListener("click"
 document.querySelector(".calc-controls input.num-equal").addEventListener("click", equate);
 
 window.addEventListener("keydown", (e) => {
-    const ACCEPTED = ["0","1","2","3","4","5","6","7","8","9","/","*","-", "+", "."];
+    console.log(e.key);
+    const ACCEPTED = ["0","1","2","3","4","5","6","7","8","9","/","*","-", "+", ".", "Enter"];
     if(ACCEPTED.includes(e.key)){
+        if(e.key === "Enter") {
+            document.querySelector(`.calc-controls input.num-equal`).click();
+            return;
+        }
         document.querySelector(`.calc-controls input[value='${e.key}']`).click();
     }
 })
