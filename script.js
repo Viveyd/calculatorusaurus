@@ -8,17 +8,17 @@ document.querySelector(".calc-controls input.num-sign").addEventListener("click"
 document.querySelector(".calc-controls input.num-point").addEventListener("click", addPoint);
 document.querySelector(".calc-controls input.num-sqrd").addEventListener("click", squareNumber);
 document.querySelector(".calc-controls input.num-equal").addEventListener("click", equate);
-document.querySelector(".calc-controls input.clear-all").addEventListener("click", clearAll);
+document.querySelector(".calc-controls input.clear-all").addEventListener("mousedown", clearAll);
 
 
 window.addEventListener("keydown", (e) => {
-    const ACCEPTED = ["0","1","2","3","4","5","6","7","8","9","/","*","-", "+", ".", "Enter"];
+    const ACCEPTED = ["Enter", "0","1","2","3","4","5","6","7","8","9","/","*","-", "+", "."];
     if(ACCEPTED.includes(e.key)){
         if(e.key === "Enter") {
             document.querySelector(`.calc-controls input.num-equal`).click();
-            return;
+        } else {
+            document.querySelector(`.calc-controls input[value='${e.key}']`).click();
         }
-        document.querySelector(`.calc-controls input[value='${e.key}']`).click();
     }
 })
 
@@ -54,7 +54,6 @@ function equate(){ // for equal operator
         calcInputs.temp = operate(calcInputs.operator, calcInputs.operand1, calcInputs.operand2);
         calcInputs.operand1 = null;
         calcInputs.justCalculated = true;
-        console.log(calcInputs.temp);
         document.querySelector(".calc-display").textContent = calcInputs.temp;
 
     } else if(calcInputs.justCalculated){
@@ -124,12 +123,13 @@ function squareNumber(){
     if(Number(calcDisplay.textContent) > 1) calcDisplay.textContent = Number(calcDisplay.textContent)**2;
 }
 
-function clearAll(){
+function clearAll(e){
     document.querySelector(".calc-display").textContent = "";
     calcInputs.operand1 = null;
     calcInputs.operand2 = null;
     calcInputs.operator = null;
     calcInputs.temp = null;
+    e.preventDefault();
 }
 
 function clearDisplay(){
