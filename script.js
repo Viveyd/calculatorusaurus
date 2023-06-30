@@ -41,7 +41,7 @@ function setOperator(e){
         calcInputs.operand1 = temp;
         calcInputs.operator = e.target.value;
         calcInputs.temp = null;
-    } else if(operand1 && operator && temp === null){
+    } else if(operand1 && temp === null){
         calcInputs.operator = e.target.value;
     }
     else if(operand1 && operator && operand2 === null && temp){ // Computes result and changes operator
@@ -56,6 +56,20 @@ function setOperator(e){
 }
 
 function equate(){ // for equal operator
+    const {operand1, operand2, operator, temp} = calcInputs;
+    const calcDisplay =  document.querySelector(".calc-display");
+    if(operand1 === null){
+        return;
+    }
+    else if(operand1 && operand2 === null && temp){
+        calcInputs.operand2 = temp;
+        calcResult = operate(calcInputs.operator, operand1, calcInputs.operand2);
+        calcDisplay.textContent = calcResult;
+        calcInputs.operand1 = calcResult;
+        calcInputs.operand2 = null;
+        calcInputs.operator = null;
+        clearTemp();
+    }
 
 }
 
