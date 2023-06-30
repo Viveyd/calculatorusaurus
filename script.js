@@ -180,19 +180,21 @@ function addPoint(){
 function squareNumber(){
     if(Number(calcInputs.temp) > 1) {
         calcInputs.temp = Number(calcInputs.temp)**2
-        document.querySelector(".calc-display").textContent = calcInputs.temp;
+        document.querySelector(".calc-display").textContent =  calcInputs.temp ;
     };
 }
 
 function numToSqrt(){
     calcInputs.temp = Math.sqrt(Number(calcInputs.temp));
-    document.querySelector(".calc-display").textContent = calcInputs.temp;
+    let newValue = Math.round((Number(calcInputs.temp) + Number.EPSILON) * 100) / 100;
+    document.querySelector(".calc-display").textContent =  newValue;
 }
 
 function numToReciprocal(){
     if(Number(calcInputs.temp) > 1) {
-        calcInputs.temp = 1/Number(calcInputs.temp);
-        document.querySelector(".calc-display").textContent = calcInputs.temp;
+        calcInputs.temp = 1/calcInputs.temp;
+        let newValue = Math.round((Number(calcInputs.temp) + Number.EPSILON) * 100) / 100;
+        document.querySelector(".calc-display").textContent = newValue;
     };
 }
 
