@@ -57,11 +57,7 @@ function setOperator(e){ // Also sets the operands, and computes the result if c
     else if(operand1 && operator && operand2 === null && temp){ // Set operand 2, compute, prep variables for next computation AIO (step 2)
         calcInputs.operand2 = temp;
         calcResult = operate(operator, operand1, calcInputs.temp);
-        previousOperation = { // Actually, only operand2 is used currently but will be useful for future features
-            operand1: calcInputs.operand1,
-            operand2: calcInputs.operand2,
-            operator: calcInputs.operator,
-        };
+        recordOperation();
         calcInputs.operator = e.target.value;
         calcInputs.operand1 = calcResult;
         calcInputs.operand2 = null;
@@ -86,11 +82,7 @@ function equate(){ // for equal operator
     else if(operand1 && operand2 === null && temp){
         calcInputs.operand2 = temp;
         calcResult = operate(calcInputs.operator, operand1, calcInputs.operand2);
-        previousOperation = { // Actually, only operand2 is used currently but will be useful for future features
-            operand1: calcInputs.operand1,
-            operand2: calcInputs.operand2,
-            operator: calcInputs.operator,
-        };
+        recordOperation();
         calcDisplay.textContent = calcResult;
         calcInputs.operand1 = calcResult;
         calcInputs.operand2 = null;
@@ -100,6 +92,16 @@ function equate(){ // for equal operator
     }
 
 }
+
+function recordOperation(){
+    previousOperation = { // Actually, only operand2 is used currently but will be useful for future features
+        operand1: calcInputs.operand1,
+        operand2: calcInputs.operand2,
+        operator: calcInputs.operator,
+    };
+}
+
+
 
 function inputNumber(e){
     if(hadJustComputed){ // Reset state if user inputs number immediately after equate(), prepping the state for brand new computation. 
