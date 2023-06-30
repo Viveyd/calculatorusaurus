@@ -186,15 +186,13 @@ function squareNumber(){
 
 function numToSqrt(){
     calcInputs.temp = Math.sqrt(Number(calcInputs.temp));
-    let newValue = Math.round((Number(calcInputs.temp) + Number.EPSILON) * 100) / 100;
-    document.querySelector(".calc-display").textContent =  newValue;
+    document.querySelector(".calc-display").textContent =  roundTo2DP(Number(calcInputs.temp));
 }
 
 function numToReciprocal(){
     if(Number(calcInputs.temp) > 1) {
         calcInputs.temp = 1/calcInputs.temp;
-        let newValue = Math.round((Number(calcInputs.temp) + Number.EPSILON) * 100) / 100;
-        document.querySelector(".calc-display").textContent = newValue;
+        document.querySelector(".calc-display").textContent = roundTo2DP(Number(calcInputs.temp));
     };
 }
 
@@ -229,6 +227,10 @@ function delChar(){
 
 function clearTemp(){
     calcInputs.temp = null;
+}
+
+function roundTo2DP(num){
+    return (Math.round((num + Number.EPSILON) * 100) / 100);
 }
 
 /* 
