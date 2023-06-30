@@ -34,21 +34,21 @@ const calcInputs = {
 let calcResult = null;
 let hadJustComputed = false;
 
-function setOperator(e){
+function setOperator(e){ // Also sets the operands, and computes the result if current data is operable
     const {operand1, operand2, operator, temp} = calcInputs;
     const calcDisplay =  document.querySelector(".calc-display");
-    if(hadJustComputed === true){
+    if(hadJustComputed === true){ // Initialize or prep a follow up computation after equate() if operator was immediately inputted after.
         hadJustComputed = false;
         calcInputs.temp = null;
     }
-    if(operand1 === null && temp){
+    if(operand1 === null && temp){ // Set operand 1 (step 1)
         calcInputs.operand1 = temp;
         calcInputs.operator = e.target.value;
         calcInputs.temp = null;
-    } else if(operand1 && temp === null){
+    } else if(operand1 && temp === null){ // Re-set operator mid operation (step 1.1)
         calcInputs.operator = e.target.value;
     }
-    else if(operand1 && operator && operand2 === null && temp){ // Computes result and changes operator
+    else if(operand1 && operator && operand2 === null && temp){ // Set operand 2, compute, prep variables for next computation AIO
         calcInputs.operand2 = temp;
         calcResult = operate(operator, operand1, calcInputs.temp);
         calcInputs.operator = e.target.value;
@@ -73,13 +73,13 @@ function equate(){ // for equal operator
         calcInputs.operand2 = null;
         calcInputs.operator = null;
         clearTemp();
-        hadJustComputed = true;
+        hadJustComputed = true; // temporarily controls the behavior of the succeeding inputNumber() and setOperator() (for just 1 call, whichever is called first)
     }
 
 }
 
 function inputNumber(e){
-    if(hadJustComputed){ // Inputting a number after a successful equate() will be like initial state
+    if(hadJustComputed){ // Reset state if user inputs number immediately after equate(), prepping the state for brand new computation. 
         hadJustComputed = false;
         calcInputs.operand1 = null;
         calcInputs.temp = e.target.value;
