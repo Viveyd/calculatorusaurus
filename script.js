@@ -82,7 +82,8 @@ function inputNumber(e){
     if(hadJustComputed){ // Reset state if user inputs number immediately after equate(), prepping the state for brand new computation. 
         hadJustComputed = false;
         calcInputs.operand1 = null;
-        calcInputs.temp = e.target.value;
+        if(calcInputs.temp === "0.") calcInputs.temp += e.target.value; // Prevents '0.' from being overwritten on next new computation.
+        else calcInputs.temp = e.target.value;
     }
     else if(calcInputs.temp === null) calcInputs.temp = e.target.value;
     else calcInputs.temp += e.target.value;
@@ -129,7 +130,9 @@ function toggleNumSign(){
 }
 
 function addPoint(){
-    if(calcInputs.temp === null) calcInputs.temp = "0.";
+    if(calcInputs.temp === null) {
+        calcInputs.temp = "0.";
+    }
     else if(calcInputs.temp.toString().includes(".")) return;
     else calcInputs.temp +=  ".";
     document.querySelector(".calc-display").textContent = calcInputs.temp;
