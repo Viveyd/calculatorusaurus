@@ -11,11 +11,12 @@ document.querySelector(".calc-controls input.num-sqrt").addEventListener("click"
 document.querySelector(".calc-controls input.num-reciprocal").addEventListener("click", numToReciprocal);
 document.querySelector(".calc-controls input.num-equal").addEventListener("click", equate);
 document.querySelector(".calc-controls input.clear-all").addEventListener("click", clearAll);
+document.querySelector(".calc-controls input.clear-entry").addEventListener("click", clearEntry);
 document.querySelector(".calc-controls input.del").addEventListener("click", delChar);
 
 
 window.addEventListener("keydown", (e) => {
-    const ACCEPTED = ["Enter","Backspace","Escape","0","1","2","3","4","5","6","7","8","9","/","*","-", "+", "."];
+    const ACCEPTED = ["Enter","Backspace","Escape", "Delete","0","1","2","3","4","5","6","7","8","9","/","*","-", "+", "."];
     if(ACCEPTED.includes(e.key)){
         if(e.key === "Enter") {
             document.querySelector(`.calc-controls input.num-equal`).click();
@@ -23,6 +24,8 @@ window.addEventListener("keydown", (e) => {
             document.querySelector(`.calc-controls input.del`).click();
         } else if(e.key === "Escape") {
             document.querySelector(`.calc-controls input.clear-all`).click();
+        }else if(e.key === "Delete") {
+            document.querySelector(`.calc-controls input.clear-entry`).click();
         }else {
             document.querySelector(`.calc-controls input[value='${e.key}']`).click();
         }
@@ -194,13 +197,20 @@ function numToReciprocal(){
 }
 
 function clearAll(e){
-    console.log("fires")
     document.querySelector(".calc-display").textContent = "";
     calcInputs.operand1 = null;
     calcInputs.operand2 = null;
     calcInputs.operator = null;
     calcInputs.temp = null;
     e.preventDefault();
+}
+
+function clearEntry(){
+    if(calcInputs.temp === null) return;
+    else if(calcInputs.temp !== ""){
+        calcInputs.temp = "";
+    }
+    document.querySelector(".calc-display").textContent = calcInputs.temp;
 }
 
 function clearDisplay(){
