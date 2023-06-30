@@ -168,8 +168,10 @@ function addPoint(){
 }
 
 function squareNumber(){
-    const calcDisplay = document.querySelector(".calc-display");
-    if(Number(calcDisplay.textContent) > 1) calcDisplay.textContent = Number(calcDisplay.textContent)**2;
+    if(Number(calcInputs.temp) > 1) {
+        calcInputs.temp = Number(calcInputs.temp)**2
+        document.querySelector(".calc-display").textContent = calcInputs.temp;
+    };
 }
 
 function clearAll(e){
