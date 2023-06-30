@@ -101,7 +101,11 @@ function recordOperation(){
     };
 }
 
-
+function setCalcInputs(op, op1, op2){
+    if(op !== undefined) calcInputs.operator = op;
+    if(op1 !== undefined) calcInputs.operand1 = op1;
+    if(op2 !== undefined) calcInputs.operand2 = op2;
+}
 
 function inputNumber(e){
     if(hadJustComputed){ // Reset state if user inputs number immediately after equate(), prepping the state for brand new computation. 
