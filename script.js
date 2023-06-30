@@ -33,6 +33,7 @@ const calcInputs = {
 
 let calcResult = null;
 let hadJustComputed = false;
+let hadJustComputed_setOperator = false;
 let previousOperation = { // Mainly for equate()
     operand1: null,
     operand2: null,
@@ -50,24 +51,30 @@ function setOperator(e){ // Also sets the operands, and computes the result if c
         calcInputs.operand1 = temp;
         calcInputs.operator = e.target.value;
         calcInputs.temp = null;
-    } else if(operand1 && temp === null){ // Re-set operator mid operation (step 1.1)
+    } else if(operand1 && temp === null){ // Change operator mid operation (optional step 1.1)
         calcInputs.operator = e.target.value;
     }
-    else if(operand1 && operator && operand2 === null && temp){ // Set operand 2, compute, prep variables for next computation AIO
+    else if(operand1 && operator && operand2 === null && temp){ // Set operand 2, compute, prep variables for next computation AIO (step 2)
         calcInputs.operand2 = temp;
         calcResult = operate(operator, operand1, calcInputs.temp);
+        previousOperation = { // Actually, only operand2 is used currently but will be useful for future features
+            operand1: calcInputs.operand1,
+            operand2: calcInputs.operand2,
+            operator: calcInputs.operator,
+        };
         calcInputs.operator = e.target.value;
         calcInputs.operand1 = calcResult;
         calcInputs.operand2 = null;
         calcDisplay.textContent = calcResult;
         clearTemp();
+        hadJustComputed_setOperator = true;
     } 
 }
 
 function equate(){ // for equal operator
     const {operand1, operand2, operator, temp} = calcInputs;
     const calcDisplay =  document.querySelector(".calc-display");
-    if(hadJustComputed){ // If user presses equal for second time in a row, repeat previous operation but with new operand 1 (the result from last computation)
+    if(hadJustComputed || hadJustComputed_setOperator){ // If user presses equal for second time in a row, repeat previous operation but with new operand 1 (the result from last computation)
         calcResult = operate(previousOperation.operator, calcInputs.operand1, previousOperation.operand2);
         calcDisplay.textContent = calcResult;
         calcInputs.operand1 = calcResult;
