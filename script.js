@@ -10,19 +10,20 @@ document.querySelector(".calc-controls input.num-sqrd").addEventListener("click"
 document.querySelector(".calc-controls input.num-sqrt").addEventListener("click", numToSqrt);
 document.querySelector(".calc-controls input.num-reciprocal").addEventListener("click", numToReciprocal);
 document.querySelector(".calc-controls input.num-equal").addEventListener("click", equate);
-document.querySelector(".calc-controls input.clear-all").addEventListener("mousedown", clearAll);
+document.querySelector(".calc-controls input.clear-all").addEventListener("click", clearAll);
 document.querySelector(".calc-controls input.del").addEventListener("click", delChar);
 
 
 window.addEventListener("keydown", (e) => {
-    console.log(e.key)
-    const ACCEPTED = ["Enter","Backspace","0","1","2","3","4","5","6","7","8","9","/","*","-", "+", "."];
+    const ACCEPTED = ["Enter","Backspace","Escape","0","1","2","3","4","5","6","7","8","9","/","*","-", "+", "."];
     if(ACCEPTED.includes(e.key)){
         if(e.key === "Enter") {
             document.querySelector(`.calc-controls input.num-equal`).click();
         } else if(e.key === "Backspace") {
             document.querySelector(`.calc-controls input.del`).click();
-        } else {
+        } else if(e.key === "Escape") {
+            document.querySelector(`.calc-controls input.clear-all`).click();
+        }else {
             document.querySelector(`.calc-controls input[value='${e.key}']`).click();
         }
     }
@@ -193,6 +194,7 @@ function numToReciprocal(){
 }
 
 function clearAll(e){
+    console.log("fires")
     document.querySelector(".calc-display").textContent = "";
     calcInputs.operand1 = null;
     calcInputs.operand2 = null;
