@@ -33,6 +33,11 @@ const calcInputs = {
 
 let calcResult = null;
 let hadJustComputed = false;
+let previousOperation = { // Mainly for equate()
+    operand1: null,
+    operand2: null,
+    operator: null,
+};
 
 function setOperator(e){ // Also sets the operands, and computes the result if current data is operable
     const {operand1, operand2, operator, temp} = calcInputs;
@@ -62,18 +67,29 @@ function setOperator(e){ // Also sets the operands, and computes the result if c
 function equate(){ // for equal operator
     const {operand1, operand2, operator, temp} = calcInputs;
     const calcDisplay =  document.querySelector(".calc-display");
+    if(hadJustComputed){ // If user presses equal for second time in a row, repeat previous operation but with new operand 1 (the result from last computation)
+        calcResult = operate(previousOperation.operator, calcInputs.operand1, previousOperation.operand2);
+        calcDisplay.textContent = calcResult;
+        calcInputs.operand1 = calcResult;
+        return;
+    }
     if(operand1 === null){
         return;
     }
     else if(operand1 && operand2 === null && temp){
         calcInputs.operand2 = temp;
         calcResult = operate(calcInputs.operator, operand1, calcInputs.operand2);
+        previousOperation = { // Actually, only operand2 is used currently but will be useful for future features
+            operand1: calcInputs.operand1,
+            operand2: calcInputs.operand2,
+            operator: calcInputs.operator,
+        };
         calcDisplay.textContent = calcResult;
         calcInputs.operand1 = calcResult;
         calcInputs.operand2 = null;
         calcInputs.operator = null;
         clearTemp();
-        hadJustComputed = true; // temporarily controls the behavior of the succeeding inputNumber() and setOperator() (for just 1 call, whichever is called first)
+        hadJustComputed = true; // temporarily change the behavior of the succeeding inputNumber(), setOperator(), and equate() (for just 1 call, except equate, with whichever consumes it first)
     }
 
 }
