@@ -7,6 +7,7 @@
 document.querySelector(".calc-controls input.num-sign").addEventListener("click", toggleNumSign);
 document.querySelector(".calc-controls input.num-point").addEventListener("click", addPoint);
 document.querySelector(".calc-controls input.num-sqrd").addEventListener("click", squareNumber);
+document.querySelector(".calc-controls input.num-sqrt").addEventListener("click", numToSqrt);
 document.querySelector(".calc-controls input.num-equal").addEventListener("click", equate);
 document.querySelector(".calc-controls input.clear-all").addEventListener("mousedown", clearAll);
 
@@ -172,6 +173,11 @@ function squareNumber(){
         calcInputs.temp = Number(calcInputs.temp)**2
         document.querySelector(".calc-display").textContent = calcInputs.temp;
     };
+}
+
+function numToSqrt(){
+    calcInputs.temp = Math.sqrt(Number(calcInputs.temp));
+    document.querySelector(".calc-display").textContent = calcInputs.temp;
 }
 
 function clearAll(e){
