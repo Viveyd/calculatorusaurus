@@ -28,15 +28,19 @@ const calcInputs = {
     operand2: null,
     operator: null,
     temp: null,
-    justCalculated: false,
     lastInput: null
 }
 
 let calcResult = null;
+let hadJustComputed = false;
 
 function setOperator(e){
     const {operand1, operand2, operator, temp} = calcInputs;
     const calcDisplay =  document.querySelector(".calc-display");
+    if(hadJustComputed === true){
+        hadJustComputed = false;
+        calcInputs.temp = null;
+    }
     if(operand1 === null && temp){
         calcInputs.operand1 = temp;
         calcInputs.operator = e.target.value;
@@ -69,12 +73,18 @@ function equate(){ // for equal operator
         calcInputs.operand2 = null;
         calcInputs.operator = null;
         clearTemp();
+        hadJustComputed = true;
     }
 
 }
 
 function inputNumber(e){
-    if(calcInputs.temp === null) calcInputs.temp = e.target.value;
+    if(hadJustComputed){ // Inputting a number after a successful equate() will be like initial state
+        hadJustComputed = false;
+        calcInputs.operand1 = null;
+        calcInputs.temp = e.target.value;
+    }
+    else if(calcInputs.temp === null) calcInputs.temp = e.target.value;
     else calcInputs.temp += e.target.value;
     const calcDisplay =  document.querySelector(".calc-display");
     calcDisplay.textContent = calcInputs.temp;
