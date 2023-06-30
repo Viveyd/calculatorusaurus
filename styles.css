@@ -1,6 +1,7 @@
 html{
     height: 100vh;
     width: 100vw;
+    
 }
 
 body{
@@ -10,30 +11,59 @@ body{
     margin: 0;
     height: 100%;
     width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .calc-body{
-    width: 300px;
-    height: 400px;
+    width: 100%;
+    max-width: 369px;
+    max-height: 667px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    border: 3px solid black;
+    border: 5px solid orange;
+    background-color: #28282B;
+    border-radius: 10px;
 }
 
 .calc-display{
-   flex: 1 1 30%;
+   min-height: 105px;
+   padding: 16px;
    display: flex;
    align-items: center;
    justify-content: end;
+   font-family: 'Martian Mono', monospace;
+   font-size: 28px;
+   font-weight: bold;
+   color: white;
 }
 
 .calc-controls{
-    flex: 1 1 70%;
+    flex-grow: 4;
+    padding: 0 16px 16px 16px;
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
  }
 
- .calc-controls > input{
-    flex: 0 0 25%; 
- }
+ .calc-controls > input{    
+    flex-basis: 70px;
+    height: 70px;
+    background-color: grey;
+    border: 0;
+    border-radius: 50%;
+    margin-bottom: 16px;
+    font-family: 'Martian Mono', monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.green-bg {
+    background-color: springgreen !important;
+}
+
+
 

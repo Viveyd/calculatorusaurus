@@ -188,8 +188,6 @@ function numToReciprocal(){
     };
 }
 
-
-
 function clearAll(e){
     document.querySelector(".calc-display").textContent = "";
     calcInputs.operand1 = null;
