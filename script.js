@@ -1,38 +1,3 @@
-[... document.querySelectorAll(".calc-controls input.num-btn")].forEach(numBtn =>{
-    numBtn.addEventListener("click", inputNumber)
-});
-[... document.querySelectorAll(".calc-controls input.num-operator")].forEach(numBtn =>{
-    numBtn.addEventListener("click", setOperator)
-});
-document.querySelector(".calc-controls input.num-sign").addEventListener("click", toggleNumSign);
-document.querySelector(".calc-controls input.num-point").addEventListener("click", addPoint);
-document.querySelector(".calc-controls input.num-sqrd").addEventListener("click", squareNumber);
-document.querySelector(".calc-controls input.num-sqrt").addEventListener("click", numToSqrt);
-document.querySelector(".calc-controls input.num-reciprocal").addEventListener("click", numToReciprocal);
-document.querySelector(".calc-controls input.num-equal").addEventListener("click", equate);
-document.querySelector(".calc-controls input.clear-all").addEventListener("click", clearAll);
-document.querySelector(".calc-controls input.clear-entry").addEventListener("click", clearEntry);
-document.querySelector(".calc-controls input.del").addEventListener("click", delChar);
-
-
-window.addEventListener("keydown", (e) => {
-    const ACCEPTED = ["Enter","Backspace","Escape", "Delete","0","1","2","3","4","5","6","7","8","9","/","*","-", "+", "."];
-    if(ACCEPTED.includes(e.key)){
-        if(e.key === "Enter") {
-            document.querySelector(`.calc-controls input.num-equal`).click();
-        } else if(e.key === "Backspace") {
-            document.querySelector(`.calc-controls input.del`).click();
-        } else if(e.key === "Escape") {
-            document.querySelector(`.calc-controls input.clear-all`).click();
-        }else if(e.key === "Delete") {
-            document.querySelector(`.calc-controls input.clear-entry`).click();
-        }else {
-            document.querySelector(`.calc-controls input[value='${e.key}']`).click();
-        }
-    }
-})
-
-
 const calcInputs = {
     operand1: null,
     operand2: null,
@@ -233,6 +198,43 @@ function roundTo2DP(num){
     return (Math.round((num + Number.EPSILON) * 100) / 100);
 }
 
-/* 
-if click
-*/
+function getNPercent(){
+    if(calcInputs.operand1 && calcInputs.operator && calcInputs.operand2 === null && Number(calcInputs.temp) > 0){
+        calcInputs.temp = calcInputs.operand1 * (calcInputs.temp/100);
+        document.querySelector(".calc-display").textContent = calcInputs.temp;
+    }
+}
+
+[... document.querySelectorAll(".calc-controls input.num-btn")].forEach(numBtn =>{
+    numBtn.addEventListener("click", inputNumber)
+});
+[... document.querySelectorAll(".calc-controls input.num-operator")].forEach(numBtn =>{
+    numBtn.addEventListener("click", setOperator)
+});
+document.querySelector(".calc-controls input.num-sign").addEventListener("click", toggleNumSign);
+document.querySelector(".calc-controls input.num-point").addEventListener("click", addPoint);
+document.querySelector(".calc-controls input.num-sqrd").addEventListener("click", squareNumber);
+document.querySelector(".calc-controls input.num-sqrt").addEventListener("click", numToSqrt);
+document.querySelector(".calc-controls input.num-reciprocal").addEventListener("click", numToReciprocal);
+document.querySelector(".calc-controls input.num-equal").addEventListener("click", equate);
+document.querySelector(".calc-controls input.clear-all").addEventListener("click", clearAll);
+document.querySelector(".calc-controls input.clear-entry").addEventListener("click", clearEntry);
+document.querySelector(".calc-controls input.del").addEventListener("click", delChar);
+document.querySelector(".calc-controls input.num-percent").addEventListener("click", getNPercent);
+
+window.addEventListener("keydown", (e) => {
+    const ACCEPTED = ["Enter","Backspace","Escape", "Delete","0","1","2","3","4","5","6","7","8","9","/","*","-", "+", "."];
+    if(ACCEPTED.includes(e.key)){
+        if(e.key === "Enter") {
+            document.querySelector(`.calc-controls input.num-equal`).click();
+        } else if(e.key === "Backspace") {
+            document.querySelector(`.calc-controls input.del`).click();
+        } else if(e.key === "Escape") {
+            document.querySelector(`.calc-controls input.clear-all`).click();
+        }else if(e.key === "Delete") {
+            document.querySelector(`.calc-controls input.clear-entry`).click();
+        }else {
+            document.querySelector(`.calc-controls input[value='${e.key}']`).click();
+        }
+    }
+})
